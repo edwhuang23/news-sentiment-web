@@ -12,9 +12,15 @@
     <div style="text-align: center;">
       <div style="display: inline-block;">
         <h1>News Sentiment Analysis</h1>
-        <form method="post">
+        <form method="post" enctype=multipart/form-data>
           <div>
+            <p>Choose a picture in jpg format to upload from the news article:
+            <br>
+            <input type="file" name="picture">
+            <br>
+            <br>
             <p>Input text from a news article to analyze its sentiment:
+            <br>
             <input type="text" name="articleText">
           </div>
           <button type="submit" class="btn btn-primary">Analyze!</button>
