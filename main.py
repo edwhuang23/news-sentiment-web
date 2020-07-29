@@ -1,13 +1,19 @@
 from flask import Flask, request, url_for, redirect, render_template
 from analyze import textAnalyze, imageAnalyze
+import os
 
 app = Flask(__name__)
 
-@app.route("/", methods=['GET', 'POST'])
+app.config["IMAGE_UPLOADS"] = "/uploads"
+
+@app.route("/home", methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
-        textInput = request.form.get("articleText")
-        return redirect(url_for('analyze', text=textInput))
+        if request.files:
+            imageInput = request.files["image"]
+            #imageInput.save(os.path.join(app.config["IMAGE_UPLOADS"], imageInput.filename))
+            textInput = request.form.get("articleText")
+            return redirect(url_for('analyze', text=textInput, image=imageInput))
 
     return render_template("home.html")
 
@@ -17,7 +23,7 @@ def analyze():
     responseString = ""
 
     # Analyze image
-    imageSentiment = imageAnalyze("Happy!")
+    imageSentiment = imageAnalyze(request.args['image'])
     responseString += "The image sentiment is "
 
     if imageSentiment == 1:
@@ -26,7 +32,8 @@ def analyze():
         responseString += "negative. "
 
     # Analyze text
-    textSentiment = textAnalyze(request.args['text'])
+    #textAnalyze(request.args['text'])
+    textSentiment = 1
     responseString += "The text sentiment is "
 
     if textSentiment == 1:
