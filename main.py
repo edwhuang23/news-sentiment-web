@@ -32,14 +32,9 @@ def analyze():
         responseString += "negative. "
 
     # Analyze text
-    #textAnalyze(request.args['text'])
-    textSentiment = 1
-    responseString += "The text sentiment is "
+    textSentiment = textAnalyze(request.args['text'])
+    responseString += "The text sentiment is " + textSentiment
 
-    if textSentiment == 1:
-        responseString += "positive."
-    elif textSentiment == -1:
-        responseString += "negative."
 
     return responseString
 
