@@ -1,6 +1,7 @@
 from flask import Flask, request, url_for, redirect, render_template
-from analyze import textAnalyze, imageAnalyze
+from analyze import textAnalyze
 import os
+from imageanalysisTest import imageAnalyze
 
 app = Flask(__name__)
 
@@ -24,12 +25,8 @@ def analyze():
 
     # Analyze image
     imageSentiment = imageAnalyze(request.args['image'])
-    responseString += "The image sentiment is "
+    responseString += "The image sentiment is " + imageSentiment
 
-    if imageSentiment == 1:
-        responseString += "positive. "
-    elif imageSentiment == -1:
-        responseString += "negative. "
 
     # Analyze text
     textSentiment = textAnalyze(request.args['text'])
