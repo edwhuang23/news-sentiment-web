@@ -113,6 +113,3 @@ def textAnalyze(text):
         return "positive."
     else:
         return "negative."
-
-def imageAnalyze(image):
-    return 1
