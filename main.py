@@ -1,7 +1,7 @@
 from flask import Flask, request, url_for, redirect, render_template
 from analyze import textAnalyze
-import os
 from imageanalysisTest import imageAnalyze
+import os
 
 app = Flask(__name__)
 
@@ -26,7 +26,6 @@ def analyze():
     # Analyze image
     imageSentiment = imageAnalyze(request.args['image'])
     responseString += "The image sentiment is " + imageSentiment
-
 
     # Analyze text
     textSentiment = textAnalyze(request.args['text'])
