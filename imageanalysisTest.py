@@ -14,14 +14,10 @@ def imageAnalyze(imagePath):
     #loadModel path needs to be updated
     loadModel = tf.keras.models.load_model('Image_model/assets')
 
-    image_path = imagePath
-
-    loadImage = load_img(image_path, target_size=(img_width, img_height))
+    loadImage = load_img(imagePath, target_size=(img_width, img_height))
     arrImge = image.img_to_array(loadImage)
     predImage = np.expand_dims(arrImge, axis = 0)
-
     prediction = loadModel.predict_classes(predImage)
-    print(prediction)
 
     #0 is Negative is before p (Positive)
     if prediction[0] == 0:
