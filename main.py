@@ -32,7 +32,7 @@ def home():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('analyze', text=textInput, image="temp/" + filename))
+            return redirect(url_for('analyze', text=textInput, image=filename))
         else:
             print('Wrong file format')
 
@@ -51,7 +51,7 @@ def analyze():
     textSentiment = textAnalyze(request.args['text'])
     responseString += "The text sentiment is " + textSentiment
 
-
+    os.remove(os.path.join(app.config['UPLOAD_FOLDER'], request.args['image']))
     return responseString
 
 if __name__ == "__main__":

@@ -8,13 +8,13 @@ from tensorflow.keras import backend as K
 from tensorflow.keras.models import load_model
 import numpy as np
 
-def imageAnalyze(imagePath):
+def imageAnalyze(imageName):
     img_width, img_height = 155, 155
 
     #loadModel path needs to be updated
     loadModel = tf.keras.models.load_model('Image_model/assets')
 
-    loadImage = load_img(imagePath, target_size=(img_width, img_height))
+    loadImage = load_img("temp/" + imageName, target_size=(img_width, img_height))
     arrImge = image.img_to_array(loadImage)
     predImage = np.expand_dims(arrImge, axis = 0)
     prediction = loadModel.predict_classes(predImage)
