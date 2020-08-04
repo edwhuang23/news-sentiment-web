@@ -52,7 +52,7 @@ def analyze():
     responseString += "The text sentiment is " + textSentiment
 
     os.remove(os.path.join(app.config['UPLOAD_FOLDER'], request.args['image']))
-    return responseString
+    return render_template("results.html", value=responseString)
 
 if __name__ == "__main__":
     app.run(debug=True)
