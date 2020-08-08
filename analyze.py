@@ -19,12 +19,10 @@ else:
 from nltk.tokenize import sent_tokenize
 
 def restoreTextModel():
-    # Restore tuple
-    pickled_model, pickled_Xtrain, pickled_Ytrain, pickled_score = pickle.load(open("text_model.pkl", 'rb'))
-    # # Load from file
-    # with open("text_model.pkl", 'rb') as file:
-    #     pickle_model = pickle.load(file)
-    return pickled_model, pickled_Xtrain, pickled_Ytrain, pickled_score
+    # Load from file
+    with open("text_model.pkl", 'rb') as file:
+        pickle_model = pickle.load(file)
+    return pickled_model
 
 def textAnalyze(text):
     pickled_model, pickled_Xtrain, pickled_Ytrain, pickled_score = restoreTextModel()
