@@ -25,7 +25,7 @@ def restoreTextModel():
         return pickled_model
 
 def textAnalyze(text):
-    pickled_model, pickled_Xtrain, pickled_Ytrain, pickled_score = restoreTextModel()
+    pickled_model = restoreTextModel()
 
     # Preprocess the text
     # Dictionary of all emojis mapping to their meanings.
