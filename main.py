@@ -31,7 +31,6 @@ def home():
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            os.makedirs('/temp')
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('analyze', text=textInput, image=filename))
         else:
