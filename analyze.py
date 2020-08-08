@@ -22,7 +22,7 @@ def restoreTextModel():
     # Load from file
     with open("text_model.pkl", 'rb') as file:
         pickle_model = pickle.load(file)
-    return pickled_model
+        return pickled_model
 
 def textAnalyze(text):
     pickled_model, pickled_Xtrain, pickled_Ytrain, pickled_score = restoreTextModel()
