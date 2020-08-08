@@ -21,7 +21,7 @@ from nltk.tokenize import sent_tokenize
 def restoreTextModel():
     # Load from file
     with open("text_model.pkl", 'rb') as file:
-        pickle_model = pickle.load(file)
+        pickled_model = pickle.load(file)
         return pickled_model
 
 def textAnalyze(text):
