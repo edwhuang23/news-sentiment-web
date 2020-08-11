@@ -1,0 +1,8 @@
+Flask==1.1.2
+Werkzeug==1.0.1
+tensorflow==2.0.0
+numpy==1.19.1
+sklearn==0.0
+nltk==3.5
+gunicorn==20.0.4
+Pillow==7.2.0
