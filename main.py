@@ -16,25 +16,15 @@ def allowed_file(filename):
 @app.route("/home", methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            print('No file part')
-            return render_template("home.html")
-
-        file = request.files['file']
-        textInput = request.form.get("articleText")
-
-        # No file
-        if file.filename == '':
-            print('No selected file')
-            return render_template("home.html")
+        file = request.files['file'] if request.files['file'] else None
+        textInput = request.form.get("articleText") if request.form.get("articleText") else ""
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('analyze', text=textInput, image=filename))
         else:
-            print('Wrong file format')
+            filename = ""
+        return redirect(url_for('analyze', text=textInput, image=filename))
 
     return render_template("home.html")
 
@@ -44,14 +34,16 @@ def analyze():
     responseString = ""
 
     # Analyze image
-    imageSentiment = imageAnalyze(request.args['image'])
-    responseString += "The image sentiment is " + imageSentiment
+    if request.args['image'] != "":
+        imageSentiment = imageAnalyze(request.args['image'])
+        responseString += "The image sentiment is " + imageSentiment
+        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], request.args['image']))
 
     # Analyze text
-    processedText, pickled_model = textAnalyze(request.args['text'])
-    responseString += "The text sentiment is " + makeDecision(processedText, pickled_model)
+    if request.args['text'] != "":
+        processedText, pickled_model = textAnalyze(request.args['text'])
+        responseString += "The text sentiment is " + makeDecision(processedText, pickled_model)
 
-    os.remove(os.path.join(app.config['UPLOAD_FOLDER'], request.args['image']))
     return render_template("results.html", value=responseString)
 
 if __name__ == "__main__":
