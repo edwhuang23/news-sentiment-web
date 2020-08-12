@@ -1,7 +1,7 @@
 Flask==1.1.2
 Werkzeug==1.0.1
 tensorflow-cpu
-numpy==1.19.1
+numpy==1.16.0
 sklearn==0.0
 nltk==3.5
 gunicorn==20.0.4
