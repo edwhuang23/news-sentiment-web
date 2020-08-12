@@ -1,5 +1,5 @@
 from flask import Flask, request, url_for, redirect, render_template
-from analyze import textAnalyze
+from analyze import textAnalyze, makeDecision
 from imageanalysisTest import imageAnalyze
 from werkzeug.utils import secure_filename
 import os
@@ -48,8 +48,8 @@ def analyze():
     responseString += "The image sentiment is " + imageSentiment
 
     # Analyze text
-    textSentiment = textAnalyze(request.args['text'])
-    responseString += "The text sentiment is " + textSentiment
+    processedText, pickled_model = textAnalyze(request.args['text'])
+    responseString += "The text sentiment is " + makeDecision(processedText, pickled_model)
 
     os.remove(os.path.join(app.config['UPLOAD_FOLDER'], request.args['image']))
     return render_template("results.html", value=responseString)

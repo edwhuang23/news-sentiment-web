@@ -99,15 +99,20 @@ def textAnalyze(text):
           tweetwords += (word + ' ')
 
     processedText.append(tweetwords)
+    return processedText, pickled_model
 
-    vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
-
-    # Vectorize text
-    data = vectorizer.transform(processedText)
-
+def makeDecision(processedText, pickled_model):
+    data = getVectorizer(processedText)
+    
     response = pickled_model.predict(data)
 
     if response[0].item() == 4:
         return "positive."
     else:
         return "negative."
+
+def getVectorizer(processedText):
+    vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
+    # Vectorize text
+    data = vectorizer.transform(processedText)
+    return data
